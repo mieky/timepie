@@ -14,6 +14,10 @@ interface Pie {
     duration: Duration
 }
 
+interface PieVisualization {
+
+}
+
 function formatDuration(seconds: number) {
     var mins = Math.floor(seconds / 60);
     var secs = seconds - mins * 60;
@@ -21,22 +25,23 @@ function formatDuration(seconds: number) {
     return mins + ":" + (secs < 10 ? "0" + secs : "" + secs);
 }
 
-function draw(pie: Pie) {
+function create(pie: Pie) {
     var width = pie.width;
     var height = pie.height;
     var radius = pie.radius;
 
-    var data = [pie.duration.current, pie.duration.total - pie.duration.current];
+    var data = [
+        pie.duration.current,
+        pie.duration.total - pie.duration.current
+    ];
 
     var arc = d3.svg.arc()
         .innerRadius(radius - 70)
         .outerRadius(radius)
-        .cornerRadius(20);
+        // .cornerRadius(2);
 
-    var pieLayout = d3.layout.pie()
+    var layout = d3.layout.pie()
         .padAngle(.01);
-
-    var color = d3.scale.category10();
 
     var svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -44,8 +49,9 @@ function draw(pie: Pie) {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+    var color = d3.scale.category10();
     svg.selectAll("path")
-        .data(pieLayout(data))
+        .data(layout(data))
         .enter().append("path")
         .style("fill", function(d, i) { return color(i); })
         .attr("d", arc);
@@ -53,11 +59,33 @@ function draw(pie: Pie) {
     var time = svg.append("text")
         .attr("class", "time-counter")
         .text(formatDuration(pie.duration.current));
+
+    return {
+        color: color,
+        arc: arc,
+        layout: layout,
+        time: time
+    }
+}
+
+function update(pie: Pie, pieVis: any) {
+    var data = [
+        pie.duration.current,
+        pie.duration.total - pie.duration.current
+    ];
+
+    d3.select("svg").selectAll("path")
+        .data(pieVis.layout(data))
+        .style("fill", function(d, i) { return pieVis.color(i); })
+        .attr("d", pieVis.arc);
+
+    pieVis.time.text(formatDuration(pie.duration.current));
+
 }
 
 var duration = {
-    total: 20 * 60,
-    current: 15 * 60
+    total: 10,
+    current: 10
 };
 
 var pie = {
@@ -67,11 +95,21 @@ var pie = {
     duration: duration
 };
 
-draw(pie);
+var pieVis = create(pie);
 
-/*
-setInterval(function() {
-    pie.duration = pie.duration - 1;
-    draw(pie);
-}, 1000);
-*/
+window["pie"] = pie;
+window["pieVis"] = pieVis;
+window["create"] = create;
+window["update"] = update;
+
+function tick() {
+    if (pie.duration.current === 0) {
+        console.log("Time's up!");
+        clearInterval(countdown);
+        return;
+    }
+    
+    pie.duration.current = pie.duration.current - 1;
+    update(pie, pieVis);
+}
+var countdown = setInterval(tick, 1000);
