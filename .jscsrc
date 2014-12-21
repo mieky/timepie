@@ -1,0 +1,38 @@
+{
+    "preset": "google",
+    "fileExtensions": [".js"],
+
+    "validateLineBreaks": "LF",
+    "validateIndentation": 4,
+    "validateQuoteMarks": {
+        "mark": "\"", "escape": true
+    },
+
+    "disallowMultipleVarDecl": false,
+    "disallowSpacesInsideObjectBrackets": null,
+    "disallowSpacesInsideArrayBrackets": "all",
+    "disallowImplicitTypeConversion": ["string"],
+
+    "maximumLineLength": 120,
+
+    "requireDotNotation": null,
+    "requireCommaBeforeLineBreak": true,
+    "requireSpaceAfterKeywords": [
+        "do",
+        "for",
+        "if",
+        "else",
+        "switch",
+        "case",
+        "try",
+        "catch",
+        "void",
+        "while",
+        "with",
+        "return",
+        "typeof"
+    ],
+
+    "excludeFiles": [
+    ]
+}
