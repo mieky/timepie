@@ -14,10 +14,6 @@ interface Pie {
     duration: Duration
 }
 
-interface PieVisualization {
-
-}
-
 function formatDuration(seconds: number) {
     var mins = Math.floor(seconds / 60);
     var secs = seconds - mins * 60;
@@ -107,11 +103,6 @@ var pie = {
 };
 
 var pieVis = create(pie);
-
-window["pie"] = pie;
-window["pieVis"] = pieVis;
-window["create"] = create;
-window["update"] = update;
 
 function tick() {
     if (pie.duration.current === 0) {
