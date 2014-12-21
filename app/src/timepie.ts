@@ -36,12 +36,12 @@ function create(pie: Pie) {
     ];
 
     var arc = d3.svg.arc()
-        .innerRadius(radius - 70)
+        .innerRadius(radius - 100)
         .outerRadius(radius)
-        .cornerRadius(5);
+        // .cornerRadius(5);
 
     var layout = d3.layout.pie()
-        .padAngle(.01)
+        // .padAngle(.01)
         .sort(null);
 
     var svg = d3.select("body").append("svg")
@@ -61,7 +61,7 @@ function create(pie: Pie) {
             .style("fill", function(d, i) { return color(i); })
             .attr("d", arc);
 
-    var time = svg.append("text")
+    var time = d3.select("body").append("div")
         .attr("class", "time-counter")
         .text(formatDuration(pie.duration.current));
 
@@ -87,24 +87,22 @@ function update(pie: Pie, pieVis: any) {
         };
     }
     pieVis.time.text(formatDuration(pie.duration.current));
-    
+
     var path = d3.select("svg").selectAll("path")
         .data(pieVis.layout(data))
         .attr("d", pieVis.arc)
         .transition().duration(1000).attrTween("d", arcTween);
-
-
 }
 
 var duration = {
-    total: 10,
-    current: 9
+    total: 1200,
+    current: 1200
 };
 
 var pie = {
-    width: 960,
-    height: 500,
-    radius: 500 / 2 - 10,
+    width: window.innerWidth,
+    height: window.innerHeight - 30,
+    radius: (window.innerHeight - 50) / 2 - 10,
     duration: duration
 };
 
