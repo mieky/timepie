@@ -1,23 +1,35 @@
 timepie
 =======
 
-a pie-shaped timer!
+A pie-shaped timer!
 
-### How to?
+Hopefully one day useful as a presentation timer, e.g. for those fine people presenting at [Webbisauna](http://www.webbisauna.fi/)!
+
+### Running
 
 ```
 npm install
 gulp
 ```
 
+... and then http://localhost:8000/.
+
 ### TODO
 
+- set up code linting with [Flow](https://github.com/facebook/flow)
 - clean up the messy code
 - write proper interfaces
+- start & stop timer
+- set custom duration
+- make some noise when time runs out
 - have rounded corners without graphics bugs
 - requestAnimationFrame instead of setInterval
 - facelift: nicer colors, shades, etc.
 
 ### Miscellanous notes
+
+Does (at least partial) Livereload and source maps for Typescript.
+
+The command-line equivalent of 'gulp ts':
 
 ```watchify src/index.ts -p tsify --debug -o build/index.js```
