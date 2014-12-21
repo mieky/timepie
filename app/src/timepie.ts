@@ -1,20 +1,10 @@
-class Student {
-    fullname : string;
-    constructor(public firstname, public middleinitial, public lastname) {
-        this.fullname = firstname + " " + middleinitial + " " + lastname;
-    }
+///<reference path='./node.d.ts' />
+
+var d3 = require("d3");
+console.log("d3", d3);
+
+function greeter(d3 : any) {
+    return "Got us some d3 here: " + d3.version;
 }
 
-interface Person {
-    firstname: string;
-    lastname: string;
-}
-
-function greeter(person : Person) {
-    console.error("this error should take you to the source maps??!?!?!");
-    return "This is all fine and stuff, ain't that right, " + person.firstname + "!";
-}
-
-var user = new Student("Jane", "M.", "User");
-
-document.body.innerHTML = greeter(user);
+document.body.innerHTML = greeter(d3);
