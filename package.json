@@ -19,13 +19,14 @@
   },
   "license": "MIT",
   "main": "index.js",
-  "repositories": [
-    {
-      "type": "git",
-      "url": "git://github.com/mieky/timepie.git"
-    }
-  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mieky/timepie.git"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "d3": "~3.5.2"
   }
 }
