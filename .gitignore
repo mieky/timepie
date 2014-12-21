@@ -1,2 +1,4 @@
 node_modules
-
+app/css
+dist
+.DS_Store
