@@ -38,10 +38,11 @@ function create(pie: Pie) {
     var arc = d3.svg.arc()
         .innerRadius(radius - 70)
         .outerRadius(radius)
-        // .cornerRadius(2);
+        .cornerRadius(5);
 
     var layout = d3.layout.pie()
-        .padAngle(.01);
+        .padAngle(.01)
+        .sort(null);
 
     var svg = d3.select("body").append("svg")
         .attr("width", width)
@@ -49,12 +50,16 @@ function create(pie: Pie) {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    var color = d3.scale.category10();
-    svg.selectAll("path")
+    var color = d3.scale.category20();
+    var paths = svg.selectAll("path")
         .data(layout(data))
-        .enter().append("path")
-        .style("fill", function(d, i) { return color(i); })
-        .attr("d", arc);
+        .enter()
+            .append("path")
+            .each(function(d) {
+                this._current = d;
+            })
+            .style("fill", function(d, i) { return color(i); })
+            .attr("d", arc);
 
     var time = svg.append("text")
         .attr("class", "time-counter")
@@ -74,18 +79,26 @@ function update(pie: Pie, pieVis: any) {
         pie.duration.total - pie.duration.current
     ];
 
-    d3.select("svg").selectAll("path")
-        .data(pieVis.layout(data))
-        .style("fill", function(d, i) { return pieVis.color(i); })
-        .attr("d", pieVis.arc);
-
+    function arcTween(a) {
+        var i = d3.interpolate(this._current, a);
+        this._current = i(0);
+        return function(t) {
+            return pieVis.arc(i(t));
+        };
+    }
     pieVis.time.text(formatDuration(pie.duration.current));
+    
+    var path = d3.select("svg").selectAll("path")
+        .data(pieVis.layout(data))
+        .attr("d", pieVis.arc)
+        .transition().duration(1000).attrTween("d", arcTween);
+
 
 }
 
 var duration = {
     total: 10,
-    current: 10
+    current: 9
 };
 
 var pie = {
@@ -108,7 +121,7 @@ function tick() {
         clearInterval(countdown);
         return;
     }
-    
+
     pie.duration.current = pie.duration.current - 1;
     update(pie, pieVis);
 }
