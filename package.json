@@ -3,6 +3,9 @@
   "description": "a pie-shaped timer",
   "version": "0.0.0",
   "author": "Mike Arvela <mike@arvela.net>",
+  "dependencies": {
+    "d3": "~3.5.2"
+  },
   "devDependencies": {
     "browserify": "~7.0.3",
     "del": "~1.1.0",
@@ -25,8 +28,5 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "dependencies": {
-    "d3": "~3.5.2",
   }
 }
