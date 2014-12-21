@@ -11,7 +11,8 @@ interface Person {
 }
 
 function greeter(person : Person) {
-    return "Hello, " + person.firstname + " " + person.lastname;
+    console.error("testing");
+    return "This is all fine and stuff, ain't that right, " + person.firstname + "+?!?";
 }
 
 var user = new Student("Jane", "M.", "User");
