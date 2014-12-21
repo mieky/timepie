@@ -10,7 +10,7 @@ var watchify     = require("watchify");
 var browserify   = require("browserify");
 var tsify        = require("tsify");
 
-gulp.task("clean", function (cb) {
+gulp.task("clean", function(cb) {
     del(["dist/**"], cb);
 });
 
@@ -40,17 +40,18 @@ gulp.task("build", ["clean"], function() {
         .pipe(gulp.dest("dist"));
 });
 
-gulp.task("default", ["sass", "ts", "watch", "server"], function() {});
-
-// Typescript bundle
 gulp.task("ts", function bundle() {
     var watchifyArgs = watchify.args;
     watchifyArgs.debug = true;
 
-    return watchify(browserify("./app/src/timepie.ts", watchifyArgs))
+    var bundleStream = watchify(browserify("./app/src/timepie.ts", watchifyArgs))
         .plugin("tsify")
-        .bundle()
+        .bundle();
+
+    return bundleStream
         .on("error", gutil.log.bind(gutil, "Browserify error"))
         .pipe(source("timepie.js"))
         .pipe(gulp.dest("./app/js"));
 });
+
+gulp.task("default", ["sass", "ts", "watch", "server"], function() {});
