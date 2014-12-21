@@ -1,7 +1,14 @@
 body {
     font-family: helvetica, arial, sans-serif;
+    text-align: center;
 }
 
 .time-counter {
-    font-size: 35px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 70px;
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
