@@ -1,0 +1,20 @@
+{
+  "name": "timepie",
+  "description": "a pie-shaped timer",
+  "version": "0.0.0",
+  "author": "Mike Arvela <mike@arvela.net>",
+  "license": "MIT",
+  "main": "index.js",
+  "repositories": [
+    {
+      "type": "git",
+      "url": "git://github.com/mieky/timepie.git"
+    }
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "gulp-typescript": "~2.3.0"
+  }
+}
