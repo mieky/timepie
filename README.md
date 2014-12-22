@@ -3,7 +3,9 @@ timepie
 
 A pie-shaped timer!
 
-Hopefully one day useful as a presentation timer, e.g. for those fine people presenting at [Webbisauna](http://www.webbisauna.fi/)!
+Hopefully one day useful as a presentation timer, e.g. for those fine people presenting at [Webbisauna](http://www.webbisauna.fi/).
+
+![Screenshot](https://github.com/mieky/timepie/raw/master/screenshot.png)
 
 ### Running
 
