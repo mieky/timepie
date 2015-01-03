@@ -2,14 +2,16 @@ body {
     font-family: helvetica, arial, sans-serif;
     text-align: center;
     overflow: hidden;
-    background-image: radial-gradient(#ddd, #999);
+    background-image: radial-gradient(ellipse farthest-corner at 80px 80px, #eee, #999);
     transform-origin: 50% 50%;
+    margin: 0;
 }
 
 .time-counter {
     color: #666;
     font-family: 'Roboto', sans-serif;
-    font-size: 10vw;
+    font-size: 15vmin;
+    text-shadow: 2px 2px 0px #e5e5e5;    
 
     position: absolute;
     left: 50%;

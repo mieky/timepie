@@ -22,7 +22,6 @@ gulp
 - write proper interfaces
 - instructions/better UI for starting & stopping timer
 - set custom duration
-- realign on window resize
 - make some noise when time runs out
 - have rounded corners without graphics bugs
 - facelift: nicer colors, shades, etc.
