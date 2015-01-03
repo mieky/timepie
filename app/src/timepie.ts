@@ -14,7 +14,8 @@ interface Pie {
     duration: Duration
 }
 
-function formatDuration(seconds: number) {
+function formatDuration(milliseconds: number) {
+    var seconds = Math.max(0, Math.floor(milliseconds / 1000));
     var mins = Math.floor(seconds / 60);
     var secs = seconds - mins * 60;
 
@@ -88,12 +89,12 @@ function update(pie: Pie, pieVis: any) {
     var path = d3.select("svg").selectAll("path")
         .data(pieVis.layout(data))
         .attr("d", pieVis.arc)
-        .transition().duration(1000).attrTween("d", arcTween);
+        // .transition().duration(1000).attrTween("d", arcTween);
 }
 
 var duration = {
-    total: 1200,
-    current: 1200
+    total:   30 * 1000,
+    current: 30 * 1000
 };
 
 var pie = {
@@ -104,15 +105,44 @@ var pie = {
 };
 
 var pieVis = create(pie);
+var lastTimestamp = null;
+var paused = true;
 
-function tick() {
-    if (pie.duration.current === 0) {
-        console.log("Time's up!");
-        clearInterval(countdown);
+function pause() {
+    paused = !paused;
+    lastTimestamp = null;
+
+    if (!paused) {
+        window.requestAnimationFrame(tick);
+    }
+}
+
+document.addEventListener("click", pause, false);
+document.addEventListener("keypress", function(e) {
+    if (e.keyCode === 32) {
+        pause();
+    }
+}, false);
+
+function tick(timestamp) {
+    if (paused) {
         return;
     }
 
-    pie.duration.current = pie.duration.current - 1;
+    if (!lastTimestamp) {
+        lastTimestamp = timestamp;
+    }
+
+    pie.duration.current -= timestamp - lastTimestamp;
+    lastTimestamp = timestamp;
     update(pie, pieVis);
+
+    if (pie.duration.current <= 0) {
+        console.log("Time's up!");
+        return;
+    }
+
+    window.requestAnimationFrame(tick);
 }
-var countdown = setInterval(tick, 1000);
+
+window.requestAnimationFrame(tick);
