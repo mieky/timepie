@@ -27,7 +27,7 @@ function formatDuration(milliseconds: number) {
 }
 
 function create(pie: Pie) {
-    var width = pie.width;
+    var width  = pie.width;
     var height = pie.height;
     var radius = pie.radius;
 
@@ -37,7 +37,7 @@ function create(pie: Pie) {
     ];
 
     var arc = d3.svg.arc()
-        .innerRadius(radius - 100)
+        .innerRadius(radius * 0.74)
         .outerRadius(radius)
         // .cornerRadius(5);
 
@@ -104,17 +104,21 @@ function update(pie: Pie, pieVis: any) {
             .attrTween("d", arcTween);
 }
 
-var duration = {
-    total:   5 * 1000,
-    current: 5 * 1000
-};
+function createPie(duration) {
+    return {
+        width: window.innerWidth,
+        height: window.innerHeight - 30,
+        radius: (Math.min(window.innerHeight, window.innerWidth) - 50) / 2,
+        duration: duration
+    };
+}
 
-var pie = {
-    width: window.innerWidth,
-    height: window.innerHeight - 30,
-    radius: (window.innerHeight - 50) / 2 - 10,
-    duration: duration
-};
+function resize() {
+    d3.select("svg").remove();
+    d3.select(".time-counter").remove();
+    pie = createPie(pie.duration);
+    pieVis = create(pie);
+}
 
 document.addEventListener("click", pause, false);
 document.addEventListener("keypress", function(e) {
@@ -123,6 +127,12 @@ document.addEventListener("keypress", function(e) {
     }
 }, false);
 
+window.addEventListener("resize", resize, false);
+
+var pie = createPie({
+    total:   5 * 1000,
+    current: 5 * 1000
+});
 
 var pieVis = create(pie);
 var lastTimestamp = null;
