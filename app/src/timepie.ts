@@ -14,8 +14,12 @@ interface Pie {
     duration: Duration
 }
 
+function millis2seconds(milliseconds: number) {
+    return Math.ceil(milliseconds / 1000);
+}
+
 function formatDuration(milliseconds: number) {
-    var seconds = Math.max(0, Math.floor(milliseconds / 1000));
+    var seconds = millis2seconds(milliseconds);
     var mins = Math.floor(seconds / 60);
     var secs = seconds - mins * 60;
 
@@ -49,14 +53,16 @@ function create(pie: Pie) {
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
     var color = d3.scale.category20();
-    var paths = svg.selectAll("path")
+    var path = svg.selectAll("path")
         .data(layout(data))
         .enter()
             .append("path")
             .each(function(d) {
                 this._current = d;
             })
-            .style("fill", function(d, i) { return color(i); })
+            .style("fill", function(d, i) {
+                return color(i);
+            })
             .attr("d", arc);
 
     var time = d3.select("body").append("div")
@@ -67,7 +73,8 @@ function create(pie: Pie) {
         color: color,
         arc: arc,
         layout: layout,
-        time: time
+        time: time,
+        path: path
     }
 }
 
@@ -84,17 +91,22 @@ function update(pie: Pie, pieVis: any) {
             return pieVis.arc(i(t));
         };
     }
-    pieVis.time.text(formatDuration(pie.duration.current));
 
-    var path = d3.select("svg").selectAll("path")
-        .data(pieVis.layout(data))
+    setTimeout(function() {
+        pieVis.time.text(formatDuration(pie.duration.current));
+    }, 250);
+
+    pieVis.path
         .attr("d", pieVis.arc)
-        // .transition().duration(1000).attrTween("d", arcTween);
+        .data(pieVis.layout(data))
+        .transition()
+            .duration(500)
+            .attrTween("d", arcTween);
 }
 
 var duration = {
-    total:   30 * 1000,
-    current: 30 * 1000
+    total:   5 * 1000,
+    current: 5 * 1000
 };
 
 var pie = {
@@ -104,8 +116,17 @@ var pie = {
     duration: duration
 };
 
+document.addEventListener("click", pause, false);
+document.addEventListener("keypress", function(e) {
+    if (e.keyCode === 32) {
+        pause();
+    }
+}, false);
+
+
 var pieVis = create(pie);
 var lastTimestamp = null;
+var lastUpdate = null;
 var paused = true;
 
 function pause() {
@@ -117,13 +138,6 @@ function pause() {
     }
 }
 
-document.addEventListener("click", pause, false);
-document.addEventListener("keypress", function(e) {
-    if (e.keyCode === 32) {
-        pause();
-    }
-}, false);
-
 function tick(timestamp) {
     if (paused) {
         return;
@@ -133,12 +147,16 @@ function tick(timestamp) {
         lastTimestamp = timestamp;
     }
 
-    pie.duration.current -= timestamp - lastTimestamp;
+    pie.duration.current = pie.duration.current - (timestamp - lastTimestamp);
     lastTimestamp = timestamp;
-    update(pie, pieVis);
+
+    if (!lastUpdate || lastUpdate !== millis2seconds(pie.duration.current)) {
+        lastUpdate = millis2seconds(pie.duration.current);
+        update(pie, pieVis);
+    }
 
     if (pie.duration.current <= 0) {
-        console.log("Time's up!");
+        console.log("Finished!");
         return;
     }
 

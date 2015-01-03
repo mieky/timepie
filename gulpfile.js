@@ -31,7 +31,7 @@ gulp.task("watch", function() {
 gulp.task("server", function() {
     gulp.src("./app")
         .pipe(webserver({
-            livereload: true
+            livereload: false
         }));
 });
 

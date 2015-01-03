@@ -18,11 +18,9 @@ gulp
 
 ### TODO
 
-- set up code linting with [Flow](https://github.com/facebook/flow)
-- requestAnimationFrame instead of setInterval
 - clean up the messy code
 - write proper interfaces
-- start & stop timer
+- instructions/better UI for starting & stopping timer
 - set custom duration
 - realign on window resize
 - make some noise when time runs out
