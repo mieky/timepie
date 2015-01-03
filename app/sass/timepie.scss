@@ -2,10 +2,11 @@ body {
     font-family: helvetica, arial, sans-serif;
     text-align: center;
     overflow: hidden;
+    background-image: radial-gradient(#ddd, #aaa);
 }
 
 .time-counter {
-    color: cadetblue;
+    color: #666;
     font-family: 'Roboto', sans-serif;
     font-size: 10vw;
 
@@ -13,4 +14,8 @@ body {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -65%);
+}
+
+.pie {
+    filter: drop-shadow(0px 0px 9px #fff);
 }

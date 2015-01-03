@@ -41,6 +41,7 @@ function create(pie: Pie) {
         .sort(null);
 
     var svg = d3.select("body").append("svg")
+        .attr("class", "pie")
         .attr("width", width)
         .attr("height", height)
         .append("g")
