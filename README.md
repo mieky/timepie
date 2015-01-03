@@ -16,15 +16,16 @@ gulp
 
 ... and then http://localhost:8000/.
 
+Play/pause with a mouse click or spacebar. Reset with spacebar.
+
 ### TODO
 
-- clean up the messy code
-- write proper interfaces
-- instructions/better UI for starting & stopping timer
+- clean up the messy code, write proper interfaces
+- instructions on how to play/pause
 - set custom duration
+- touch support, ipad compatibility
 - make some noise when time runs out
-- have rounded corners without graphics bugs
-- facelift: nicer colors, shades, etc.
+- rounded corners without graphics bugs
 
 ### Miscellanous notes
 

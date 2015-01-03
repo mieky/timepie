@@ -38,32 +38,42 @@ function create(pie: Pie) {
 
     var arc = d3.svg.arc()
         .innerRadius(radius * 0.74)
-        .outerRadius(radius)
-        // .cornerRadius(5);
+        .outerRadius(radius); // .cornerRadius(5);
 
-    var layout = d3.layout.pie()
-        // .padAngle(.01)
+    var outerArc = d3.svg.arc()
+        .innerRadius(radius * 0.74 - 3)
+        .outerRadius(radius + 3);
+
+    var layout = d3.layout.pie() // .padAngle(.01)
         .sort(null);
 
-    var svg = d3.select("body").append("svg")
+    var color = d3.scale.category20();
+
+    var svg = d3.select("body")
+        .append("svg")
         .attr("class", "pie")
         .attr("width", width)
-        .attr("height", height)
+        .attr("height", height);
+
+    var arcs = svg.selectAll("g.arc")
+        .data(layout(data))
+        .enter()
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    var color = d3.scale.category20();
-    var path = svg.selectAll("path")
-        .data(layout(data))
-        .enter()
-            .append("path")
-            .each(function(d) {
-                this._current = d;
-            })
-            .style("fill", function(d, i) {
-                return color(i);
-            })
-            .attr("d", arc);
+    arcs.append("path")
+        .attr("class", "bg")
+        .attr("d", outerArc);
+
+    arcs.append("path")
+        .attr("class", "fg")
+        .each(function(d) {
+            this._current = d;
+        })
+        .style("fill", function(d, i) {
+            return color(i);
+        })
+        .attr("d", arc);
 
     var time = d3.select("body").append("div")
         .attr("class", "time-counter")
@@ -73,8 +83,7 @@ function create(pie: Pie) {
         color: color,
         arc: arc,
         layout: layout,
-        time: time,
-        path: path
+        time: time
     }
 }
 
@@ -96,7 +105,7 @@ function update(pie: Pie, pieVis: any) {
         pieVis.time.text(formatDuration(pie.duration.current));
     }, 250);
 
-    pieVis.path
+    d3.selectAll("path.fg")
         .attr("d", pieVis.arc)
         .data(pieVis.layout(data))
         .transition()
@@ -113,25 +122,30 @@ function createPie(duration) {
     };
 }
 
-function resize() {
+function recreate() {
     d3.select("svg").remove();
     d3.select(".time-counter").remove();
     pie = createPie(pie.duration);
     pieVis = create(pie);
 }
 
-document.addEventListener("click", pause, false);
+function reset() {
+    pie.duration.current = pie.duration.total;
+    recreate();
+}
+
+document.addEventListener("click", pause);
 document.addEventListener("keypress", function(e) {
     if (e.keyCode === 32) {
         pause();
     }
-}, false);
+});
 
-window.addEventListener("resize", resize, false);
+window.addEventListener("resize", recreate);
 
 var pie = createPie({
-    total:   5 * 1000,
-    current: 5 * 1000
+    total:   30 * 1000,
+    current: 30 * 1000
 });
 
 var pieVis = create(pie);
@@ -142,6 +156,12 @@ var paused = true;
 function pause() {
     paused = !paused;
     lastTimestamp = null;
+
+    // Reset
+    if (pie.duration.current <= 0) {
+        reset();
+        return;
+    }
 
     if (!paused) {
         window.requestAnimationFrame(tick);
