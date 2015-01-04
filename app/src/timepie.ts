@@ -55,6 +55,19 @@ function create(pie: Pie) {
         .attr("width", width)
         .attr("height", height);
 
+    var grads = svg.append("defs").selectAll("radialGradient").data(layout(data))
+        .enter().append("radialGradient")
+        .attr("gradientUnits", "userSpaceOnUse")
+        .attr("cx", "5%")
+        .attr("cy", "5%")
+        .attr("r", "80%")
+        .attr("id", function(d, i) { return "grad" + i; });
+
+    grads.append("stop").attr("offset", "0%").style("stop-color", "#999");
+    grads.append("stop").attr("offset", "100%").style("stop-color", function(d, i) {
+        return color(i);
+    });
+
     var arcs = svg.selectAll("g.arc")
         .data(layout(data))
         .enter()
@@ -70,8 +83,8 @@ function create(pie: Pie) {
         .each(function(d) {
             this._current = d;
         })
-        .style("fill", function(d, i) {
-            return color(i);
+        .attr("fill", function(d, i) {
+            return "url(#grad" + i + ")";
         })
         .attr("d", arc);
 
