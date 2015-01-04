@@ -44,13 +44,13 @@ gulp.task("ts", function bundle() {
     var watchifyArgs = watchify.args;
     watchifyArgs.debug = true;
 
-    var bundleStream = watchify(browserify("./app/src/timepie.ts", watchifyArgs))
+    var bundleStream = watchify(browserify("./app/src/app.ts", watchifyArgs))
         .plugin("tsify")
         .bundle();
 
     return bundleStream
         .on("error", gutil.log.bind(gutil, "Browserify error"))
-        .pipe(source("timepie.js"))
+        .pipe(source("app.js"))
         .pipe(gulp.dest("./app/js"));
 });
 
