@@ -20,7 +20,6 @@ Play/pause with a mouse click or spacebar. Reset with spacebar.
 
 ### TODO
 
-- further split into proper TypeScript modules/interfaces
 - instructions on how to play/pause
 - set custom duration
 - touch support, ipad compatibility

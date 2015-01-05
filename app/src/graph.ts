@@ -1,5 +1,7 @@
 ///<reference path='./node.d.ts' />
 
+import types = require("./types");
+
 var d3   = require("d3");
 var util = require("./util");
 
@@ -11,7 +13,12 @@ function formatDuration(milliseconds: number) {
     return mins + ":" + (secs < 10 ? "0" + secs : "" + secs);
 }
 
-function create(pie: any) {
+export function clear() {
+    d3.select("svg").remove();
+    d3.select(".time-counter").remove();
+}
+
+export function create(pie: types.Pie) {
     var width  = pie.width;
     var height = pie.height;
     var radius = pie.radius;
@@ -73,7 +80,7 @@ function create(pie: any) {
         .attr("class", "time-counter")
         .text(formatDuration(pie.duration.current));
 
-    return {
+    return <types.PieVisualization>{
         color: color,
         arc: arc,
         layout: layout,
@@ -81,8 +88,7 @@ function create(pie: any) {
     }
 }
 
-// TODO: use Pie type
-function update(pie: any, pieVis: any) {
+export function update(pie: types.Pie, pieVis: types.PieVisualization) {
     var data = [
         pie.duration.current,
         pie.duration.total - pie.duration.current
@@ -107,14 +113,3 @@ function update(pie: any, pieVis: any) {
             .duration(500)
             .attrTween("d", arcTween);
 }
-
-function clear() {
-    d3.select("svg").remove();
-    d3.select(".time-counter").remove();
-}
-
-module.exports = {
-    clear: clear,
-    create: create,
-    update: update
-};

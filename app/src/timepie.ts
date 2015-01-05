@@ -1,29 +1,19 @@
 ///<reference path='./node.d.ts' />
 
+import types = require("./types");
+
 var graph = require("./graph");
 var util  = require("./util");
 
-interface Duration {
-    total: number
-    current: number
-}
-
-interface Pie {
-    width: number
-    height: number
-    radius: number
-    duration: Duration
-}
-
 class Timepie {
 
-    pie: any;
-    pieVis: any;
+    pie:           types.Pie;
+    pieVis:        types.PieVisualization;
     lastTimestamp: number;
-    lastUpdate: number;
-    paused: boolean;
+    lastUpdate:    number;
+    paused:        boolean;
 
-    constructor(duration: Duration) {
+    constructor(duration: types.Duration) {
         this.pie           = this.createPie(duration);
         this.pieVis        = graph.create(this.pie);
         this.lastTimestamp = null;
@@ -33,8 +23,8 @@ class Timepie {
         this.setListeners();
     }
 
-    private createPie(duration: Duration) {
-        return {
+    private createPie(duration: types.Duration): types.Pie {
+        return <types.Pie>{
             width: window.innerWidth,
             height: window.innerHeight - 30,
             radius: (Math.min(window.innerHeight, window.innerWidth) - 50) / 2,
@@ -45,7 +35,7 @@ class Timepie {
     private recreate() {
         graph.clear();
         this.pie = this.createPie(this.pie.duration);
-        this.pieVis = graph.create(this.pie);        
+        this.pieVis = graph.create(this.pie);
     }
 
     private setListeners() {
