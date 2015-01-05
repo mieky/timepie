@@ -1,0 +1,25 @@
+body {
+  font-family: helvetica, arial, sans-serif;
+  text-align: center;
+  overflow: hidden;
+  background-image: -webkit-radial-gradient(80px 80px, ellipse farthest-corner, #eee, #999);
+  background-image: radial-gradient(ellipse farthest-corner at 80px 80px, #eee, #999);
+  -webkit-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  margin: 0; }
+
+.time-counter {
+  color: #666;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15vmin;
+  text-shadow: 2px 2px 0px #e5e5e5;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -65%);
+      -ms-transform: translate(-50%, -65%);
+          transform: translate(-50%, -65%); }
+
+path.bg {
+  fill: #f0f0f0; }
