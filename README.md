@@ -18,6 +18,15 @@ gulp
 
 Play/pause with a mouse click or spacebar. Reset with spacebar.
 
+### Tech
+
+This project is mainly for me to tinker with some fascinating tech:
+
+- TypeScript
+- D3 for visualizing
+- Gulp for building
+- Browserify (+tsify for TypeScript)
+
 ### TODO
 
 - instructions on how to play/pause
