@@ -20,7 +20,6 @@ Play/pause with a mouse click or spacebar. Reset with spacebar.
 
 ### TODO
 
-- support building into dist/ for conveniently updating gh-pages and a demo at mike.fi/timepie
 - further split into proper TypeScript modules/interfaces
 - instructions on how to play/pause
 - set custom duration
