@@ -3,7 +3,7 @@
 var TimepieApp = require("./timepie");
 
 var app = new TimepieApp({
-    total:   30 * 1000,
-    current: 30 * 1000
+    total:   300 * 1000,
+    current: 300 * 1000
 });
 app.start();
