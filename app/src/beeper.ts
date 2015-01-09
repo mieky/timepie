@@ -6,12 +6,13 @@ class Beeper {
     private osc: any;
 
     constructor() {
+        window["AudioContext"] = window["AudioContext"] || window["webkitAudioContext"];
         this.audioContext = new AudioContext();
-        this.osc = this.audioContext.createOscillator();
 
+        this.osc = this.audioContext.createOscillator();
         this.osc.connect(this.audioContext.destination);
         this.osc.frequency.setValueAtTime(0, this.audioContext.currentTime);
-        this.osc.start();
+        this.osc.start(0);
     }
 
     private bebebeep(offset, count) {
