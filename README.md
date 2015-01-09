@@ -29,10 +29,8 @@ This project is mainly for me to tinker with some fascinating tech:
 
 ### TODO
 
-- instructions on how to play/pause
-- set custom duration
-- touch support, ipad compatibility
 - make some noise when time runs out
+- touch support, ipad compatibility
 - rounded corners without graphics bugs
 
 ### Miscellanous notes

@@ -24,7 +24,7 @@ class Timepie {
         this.paused        = true;
 
         this.setListeners();
-        this.displayStatus("start with <em>space</em> or a click");
+        this.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
     }
 
     private createPie(duration: types.Duration): types.Pie {
@@ -46,11 +46,31 @@ class Timepie {
         window.addEventListener("resize", this.recreate.bind(this));
 
         document.addEventListener("click", this.pause.bind(this));
-        document.addEventListener("keypress", function(e) {
-            if (e.keyCode === 32) {
-                this.pause();
+        document.addEventListener("keydown", function(e) {
+            switch (e.keyCode) {
+                case 32: this.pause(); break;
+                case 38: this.adjustMinutes(+1); break; // up
+                case 40: this.adjustMinutes(-1); break; // down
+                case 37: this.adjustSeconds(-1); break; // left
+                case 39: this.adjustSeconds(+1); break; // right
             }
         }.bind(this));
+    }
+
+    private adjustMinutes(amount: number) {
+        this.adjustSeconds(amount * 60);
+    }
+
+    private adjustSeconds(amount: number) {
+        if (!this.paused) {
+            return;
+        }
+
+        var diff = amount * 1000;
+        this.pie.duration.current = Math.max(1000, this.pie.duration.current + diff);
+        this.pie.duration.total = this.pie.duration.current;
+
+        graph.update(this.pie, this.pieVis, { immediate: true });
     }
 
     private tick(timestamp: number) {

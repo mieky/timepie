@@ -12,24 +12,27 @@ em {
 }
 
 .status-text {
-    color: #666;
     position: absolute;
     left: 50%;
     top: 60%;
     transform: translate(-50%, -50%);
+
+    color: #999;
+    font-family: 'Roboto', sans-serif;
+    font-size: 2.0vh;
     text-align: center;
 }
 
 .time-counter {
-    color: #666;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15vmin;
-    text-shadow: 2px 2px 0px #e5e5e5;
-
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -65%);
+
+    color: #666;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15vmin;
+    text-shadow: 2px 2px 0px #e5e5e5;
 }
 
 path.bg {

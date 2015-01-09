@@ -88,7 +88,9 @@ export function create(pie: types.Pie) {
     }
 }
 
-export function update(pie: types.Pie, pieVis: types.PieVisualization) {
+export function update(pie: types.Pie, pieVis: types.PieVisualization, options: any) {
+    options = options || {};
+        
     var data = [
         pie.duration.current,
         pie.duration.total - pie.duration.current
@@ -104,7 +106,7 @@ export function update(pie: types.Pie, pieVis: types.PieVisualization) {
 
     setTimeout(function() {
         pieVis.time.text(formatDuration(pie.duration.current));
-    }, 250);
+    }, options.immediate ? 0 : 250);
 
     d3.selectAll("path.fg")
         .attr("d", pieVis.arc)
