@@ -9,17 +9,32 @@ body {
           transform-origin: 50% 50%;
   margin: 0; }
 
-.time-counter {
-  color: #666;
+em {
+  font-weight: bold; }
+
+.status-text {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  color: #999;
   font-family: 'Roboto', sans-serif;
-  font-size: 15vmin;
-  text-shadow: 2px 2px 0px #e5e5e5;
+  font-size: 2vh;
+  text-align: center; }
+
+.time-counter {
   position: absolute;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -65%);
       -ms-transform: translate(-50%, -65%);
-          transform: translate(-50%, -65%); }
+          transform: translate(-50%, -65%);
+  color: #666;
+  font-family: 'Roboto', sans-serif;
+  font-size: 15vmin;
+  text-shadow: 2px 2px 0px #e5e5e5; }
 
 path.bg {
   fill: #f0f0f0; }
