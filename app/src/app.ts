@@ -6,4 +6,6 @@ var app = new TimepieApp({
     total:   300 * 1000,
     current: 300 * 1000
 });
+
+window['timepie'] = app;
 app.start();

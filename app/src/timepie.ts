@@ -1,20 +1,22 @@
 ///<reference path='./types/node.d.ts' />
 ///<reference path='./types/d3.d.ts' />
 
-import types = require("./types");
+import types  = require("./types");
 
-var d3    = require("d3");
-var graph = require("./graph");
-var util  = require("./util");
+var d3     = require("d3");
+var graph  = require("./graph");
+var util   = require("./util");
+var Beeper = require("./beeper");
 
 class Timepie {
 
-    pie:            types.Pie;
-    pieVis:         types.PieVisualization;
-    lastTimestamp:  number;
-    lastUpdate:     number;
-    paused:         boolean;
-    statusEl:       D3.Selection;
+    private pie:            types.Pie;
+    private pieVis:         types.PieVisualization;
+    private lastTimestamp:  number;
+    private lastUpdate:     number;
+    private paused:         boolean;
+    private statusEl:       D3.Selection;
+    private beeper:         any; // TODO: Beeper
 
     constructor(duration: types.Duration) {
         this.pie           = this.createPie(duration);
@@ -22,6 +24,7 @@ class Timepie {
         this.lastTimestamp = null;
         this.lastUpdate    = null;
         this.paused        = true;
+        this.beeper        = new Beeper();
 
         this.setListeners();
         this.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
@@ -93,6 +96,7 @@ class Timepie {
         if (this.pie.duration.current <= 0) {
             window.setTimeout(() => {
                 this.displayStatus("time's up! hit <em>space</em> to reset.");
+                this.beeper.makeNoise();
             }, 250);
 
             return;

@@ -29,7 +29,6 @@ This project is mainly for me to tinker with some fascinating tech:
 
 ### TODO
 
-- make some noise when time runs out
 - touch support, ipad compatibility
 - rounded corners without graphics bugs
 
