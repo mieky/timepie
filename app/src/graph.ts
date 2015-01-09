@@ -1,4 +1,4 @@
-///<reference path='./node.d.ts' />
+///<reference path='./types/node.d.ts' />
 
 import types = require("./types");
 

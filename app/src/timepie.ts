@@ -1,17 +1,20 @@
-///<reference path='./node.d.ts' />
+///<reference path='./types/node.d.ts' />
+///<reference path='./types/d3.d.ts' />
 
 import types = require("./types");
 
+var d3    = require("d3");
 var graph = require("./graph");
 var util  = require("./util");
 
 class Timepie {
 
-    pie:           types.Pie;
-    pieVis:        types.PieVisualization;
-    lastTimestamp: number;
-    lastUpdate:    number;
-    paused:        boolean;
+    pie:            types.Pie;
+    pieVis:         types.PieVisualization;
+    lastTimestamp:  number;
+    lastUpdate:     number;
+    paused:         boolean;
+    statusEl:       D3.Selection;
 
     constructor(duration: types.Duration) {
         this.pie           = this.createPie(duration);
@@ -21,6 +24,7 @@ class Timepie {
         this.paused        = true;
 
         this.setListeners();
+        this.displayStatus("start with <em>space</em> or a click");
     }
 
     private createPie(duration: types.Duration): types.Pie {
@@ -67,16 +71,34 @@ class Timepie {
         }
 
         if (this.pie.duration.current <= 0) {
-            console.log("Finished!");
+            window.setTimeout(() => {
+                this.displayStatus("time's up! hit <em>space</em> to reset.");
+            }, 250);
+
             return;
         }
 
         window.requestAnimationFrame(this.tick);
     }
 
+    displayStatus(text: string) {
+        if (this.statusEl === undefined) {
+            this.statusEl = d3.select("body")
+                .append("div")
+                .attr("class", "status-text");
+        }
+        this.statusEl.html(text);
+    }
+
     pause() {
         this.paused = !this.paused;
         this.lastTimestamp = null;
+
+        if (this.paused) {
+            this.displayStatus("&#10073;&#10073;"); // "pause"
+        } else {
+            this.displayStatus("&#9658;");          // "play"
+        }
 
         // Reset
         if (this.pie.duration.current <= 0) {

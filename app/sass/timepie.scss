@@ -7,6 +7,19 @@ body {
     margin: 0;
 }
 
+em {
+    font-weight: bold;
+}
+
+.status-text {
+    color: #666;
+    position: absolute;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
 .time-counter {
     color: #666;
     font-family: 'Roboto', sans-serif;
