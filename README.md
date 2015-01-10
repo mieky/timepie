@@ -1,6 +1,8 @@
 timepie
 =======
 
+[![Build Status](https://travis-ci.org/mieky/timepie.svg?branch=master)](https://travis-ci.org/mieky/timepie)
+
 A pie-shaped timer!
 
 Features:

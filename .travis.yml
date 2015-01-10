@@ -1,10 +1,7 @@
 language: node_js
 node_js:
-- '0.10'
-before_install:
-- npm install -g npm
-before_script:
-- npm install
+- 0.10
+script: gulp build && npm test
 notifications:
   email:
   - mike@arvela.net
