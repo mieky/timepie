@@ -26,7 +26,7 @@ class Timepie {
         this.paused        = true;
         this.beeper        = new Beeper();
 
-        this.setListeners();
+        window.addEventListener("resize", this.recreate.bind(this));
         this.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
     }
 
@@ -43,21 +43,6 @@ class Timepie {
         graph.clear();
         this.pie = this.createPie(this.pie.duration);
         this.pieVis = graph.create(this.pie);
-    }
-
-    private setListeners() {
-        window.addEventListener("resize", this.recreate.bind(this));
-
-        document.addEventListener("click", this.pause.bind(this));
-        document.addEventListener("keydown", function(e) {
-            switch (e.keyCode) {
-                case 32: this.pause(); break;
-                case 38: this.adjustMinutes(+1); break; // up
-                case 40: this.adjustMinutes(-1); break; // down
-                case 37: this.adjustSeconds(-1); break; // left
-                case 39: this.adjustSeconds(+1); break; // right
-            }
-        }.bind(this));
     }
 
     private adjustMinutes(amount: number) {
