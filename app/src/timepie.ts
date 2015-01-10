@@ -1,3 +1,6 @@
+/**
+    Application logic.
+*/
 ///<reference path='./types/node.d.ts' />
 ///<reference path='./types/d3.d.ts' />
 
@@ -25,9 +28,6 @@ class Timepie {
         this.lastUpdate    = null;
         this.paused        = true;
         this.beeper        = new Beeper();
-
-        window.addEventListener("resize", this.recreate.bind(this));
-        this.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
     }
 
     private createPie(duration: types.Duration): types.Pie {
@@ -122,6 +122,10 @@ class Timepie {
 
     reset() {
         this.pie.duration.current = this.pie.duration.total;
+        this.recreate();
+    }
+
+    resize() {
         this.recreate();
     }
 

@@ -1,3 +1,6 @@
+/**
+    Beeper to make some noise.
+*/
 ///<reference path="./types/webaudioapi/waa.d.ts"/>
 
 class Beeper {

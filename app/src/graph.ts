@@ -1,3 +1,7 @@
+/**
+    Graph drawing.
+*/
+
 ///<reference path='./types/node.d.ts' />
 
 import types = require("./types");
@@ -90,7 +94,7 @@ export function create(pie: types.Pie) {
 
 export function update(pie: types.Pie, pieVis: types.PieVisualization, options: any) {
     options = options || {};
-        
+
     var data = [
         pie.duration.current,
         pie.duration.total - pie.duration.current

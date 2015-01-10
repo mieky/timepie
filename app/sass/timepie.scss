@@ -4,6 +4,10 @@ html {
     top: 0;
     left: 0;
     right: 0;
+
+    // It looks like both html and body require overflow: hidden to
+    // prevent weird things from happening on iPhone.
+    overflow: hidden;
 }
 
 body {
