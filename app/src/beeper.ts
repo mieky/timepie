@@ -6,7 +6,8 @@ class Beeper {
     private osc: any;
 
     constructor() {
-        window["AudioContext"] = window["AudioContext"] || window["webkitAudioContext"];
+        window["AudioContext"] =
+            window["AudioContext"] || window["webkitAudioContext"];
         this.audioContext = new AudioContext();
 
         this.osc = this.audioContext.createOscillator();
@@ -15,17 +16,16 @@ class Beeper {
         this.osc.start(0);
     }
 
-    private bebebeep(offset, count) {
-        offset = offset || 0;
-        count = count || 3;
-
+    private bebebeep(offset = 0, count = 3) {
         var pitch = 35;
         var increment = 0.05;
         var start = this.audioContext.currentTime;
 
         for (var i = 0; i < count; i++) {
-            this.osc.frequency.setValueAtTime(this.freq(pitch), start + offset + increment * (i * 2));
-            this.osc.frequency.setValueAtTime(0,                start + offset + increment * (i * 2 + 1));
+            this.osc.frequency.setValueAtTime(this.freq(pitch),
+                start + offset + increment * (i * 2));
+            this.osc.frequency.setValueAtTime(0,
+                start + offset + increment * (i * 2 + 1));
         }
     }
 
