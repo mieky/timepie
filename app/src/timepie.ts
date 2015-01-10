@@ -33,7 +33,7 @@ class Timepie {
     private createPie(duration: types.Duration): types.Pie {
         return <types.Pie>{
             width: window.innerWidth,
-            height: window.innerHeight - 30,
+            height: window.innerHeight,
             radius: (Math.min(window.innerHeight, window.innerWidth) - 50) / 2,
             duration: duration
         };
