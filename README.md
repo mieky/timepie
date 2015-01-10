@@ -31,6 +31,7 @@ This project is mainly for me to tinker with some fascinating tech:
 
 - touch support, ipad compatibility
 - make sure sound plays onmobile
+- disable scrolling (or at least handle resizing better) on mobile
 - get rid of timeouts if possible
 - a mobile-friendly layout
 - rounded corners without graphics bugs

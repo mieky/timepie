@@ -15,12 +15,29 @@ body {
     margin: 0;
 }
 
+.fork-me {
+    display: none;
+    @media screen and (min-width: 500px) {
+        display: block;
+    }
+}
+
 svg {
     pointer-events: none;
 }
 
 em {
     font-weight: bold;
+}
+
+.pie {
+    transform: scale(1.5);
+    overflow: hidden;
+
+    @media screen and (min-width: 500px) {
+        font-size: 15vmin;
+        transform: scale(1.0);
+    }
 }
 
 .status-text {
@@ -43,8 +60,13 @@ em {
 
     color: #666;
     font-family: 'Roboto', sans-serif;
-    font-size: 15vmin;
     text-shadow: 2px 2px 0px #e5e5e5;
+
+    font-size: 25vmin;
+
+    @media screen and (min-width: 500px) {
+        font-size: 15vmin;
+    }
 }
 
 path.bg {
