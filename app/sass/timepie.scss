@@ -17,6 +17,8 @@ body {
     background-image: radial-gradient(ellipse farthest-corner at 80px 80px, #eee, #999);
     transform-origin: 50% 50%;
     margin: 0;
+    
+    user-select: none;
 }
 
 .fork-me {
