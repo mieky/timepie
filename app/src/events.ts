@@ -15,11 +15,7 @@ function initializeTouch(app) {
 }
 
 function initializeNonTouch(app) {
-/*
-    var clickStream = Rx.Observable.fromEvent(document, "click")
-        .do(app.pause.bind(app))
-        .subscribe();
-*/
+
     var keyStream = Rx.Observable.fromEvent(document, "keydown")
         .do((e) => {
             switch (e.keyCode) {
@@ -65,6 +61,7 @@ function initializeNonTouch(app) {
             this.prevY = e.y;
             return dir;
         })
+        .throttleFirst(40) // slow down a bit
         .do((dir) => { app.adjustMinutes(dir); })
         .subscribe();
 
@@ -84,6 +81,7 @@ function initializeNonTouch(app) {
             this.prevX = e.x;
             return dir;
         })
+        .throttleFirst(20)
         .do((dir) => { app.adjustSeconds(dir); })
         .subscribe();
 
