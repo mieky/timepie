@@ -34,9 +34,9 @@ function initializeNonTouch(app) {
 
     var mouseStream = Rx.Observable.fromEvent(document, "mousedown")
         .do((e) => {
-            this.dx = 0;
             this.dy = 0;
-            this.xy = {
+            this.dx = 0;
+            this.startXy = {
                 x: e.x,
                 y: e.y
             };
@@ -47,32 +47,45 @@ function initializeNonTouch(app) {
             return Rx.Observable.fromEvent(document, "mousemove")
                 .takeUntil(Rx.Observable.fromEvent(document, "mouseup"));
         })
-        .switch()
-        .do((e) => {
-            if (this.dx !== undefined) this.dx = this.dx.x - e.x;
-            if (this.dy !== undefined) this.dy = this.xy.y - e.y;
-        });
+        .switch();
 
     var mouseVerticalStream = mouseStream
-        .filter((e) => {
-            return this.dy >= 5 && this.dy > (this.dx || 0);
+        .filter(() => {
+            return this.dy !== undefined;
         })
-        .do(() => { delete this.dx; });
+        .do((e) => {
+            if (Math.abs(e.y - this.startXy.y) >= 5) {
+                delete this.dx;
+            }
+        })
+        .map((e) => {
+            var prevY = this.prevY || 0;
+            var dir = e.y > prevY ? -1 : 1;
+
+            this.prevY = e.y;
+            return dir;
+        })
+        .do((dir) => { app.adjustMinutes(dir); })
+        .subscribe();
 
     var mouseHorizontalStream = mouseStream
-        .filter((e) => {
-            return this.dx >= 5 && this.dx > (this.dy || 0);
+        .filter(() => {
+            return this.dx !== undefined;
         })
-        .do(() => { delete this.dy; });
+        .do((e) => {
+            if (Math.abs(e.x - this.startXy.x) >= 5) {
+                delete this.dy;
+            }
+        })
+        .map((e) => {
+            var prevX = this.prevX || 0;
+            var dir = e.x > prevX ? 1 : -1;
 
-    var mouseVSub = mouseVerticalStream
-        .do((e) => { console.log(this.dy); })
+            this.prevX = e.x;
+            return dir;
+        })
+        .do((dir) => { app.adjustSeconds(dir); })
         .subscribe();
-
-    var mouseHSub = mouseHorizontalStream
-        .do((e) => { console.log(this.dx); })
-        .subscribe();
-
 
     app.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
 }
