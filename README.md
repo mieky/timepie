@@ -30,6 +30,8 @@ This project is mainly for me to tinker with some fascinating tech:
 ### TODO
 
 - touch support, ipad compatibility
+- get rid of timeouts if possible
+- a mobile-friendly layout
 - rounded corners without graphics bugs
 
 ### Miscellanous notes
