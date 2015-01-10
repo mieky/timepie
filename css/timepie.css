@@ -3,7 +3,8 @@ html {
   bottom: 0;
   top: 0;
   left: 0;
-  right: 0; }
+  right: 0;
+  overflow: hidden; }
 
 body {
   font-family: helvetica, arial, sans-serif;
@@ -16,11 +17,29 @@ body {
           transform-origin: 50% 50%;
   margin: 0; }
 
+.fork-me {
+  display: none; }
+  @media screen and (min-width: 500px) {
+    .fork-me {
+      display: block; } }
+
 svg {
   pointer-events: none; }
 
 em {
   font-weight: bold; }
+
+.pie {
+  -webkit-transform: scale(1.5);
+      -ms-transform: scale(1.5);
+          transform: scale(1.5);
+  overflow: hidden; }
+  @media screen and (min-width: 500px) {
+    .pie {
+      font-size: 15vmin;
+      -webkit-transform: scale(1);
+          -ms-transform: scale(1);
+              transform: scale(1); } }
 
 .status-text {
   position: absolute;
@@ -43,8 +62,11 @@ em {
           transform: translate(-50%, -65%);
   color: #666;
   font-family: 'Roboto', sans-serif;
-  font-size: 15vmin;
-  text-shadow: 2px 2px 0px #e5e5e5; }
+  text-shadow: 2px 2px 0px #e5e5e5;
+  font-size: 25vmin; }
+  @media screen and (min-width: 500px) {
+    .time-counter {
+      font-size: 15vmin; } }
 
 path.bg {
   fill: #f0f0f0; }
