@@ -58,6 +58,11 @@ function initializeNonTouch(app) {
             var prevY = this.prevY || 0;
             var dir = e.y > prevY ? -1 : 1;
 
+            // Don't change values until locked on an axis, or if position unchanged
+            if (this.dx !== undefined && this.dy !== undefined || e.y === prevY) {
+                dir = 0;
+            }
+
             this.prevY = e.y;
             return dir;
         })
@@ -76,7 +81,13 @@ function initializeNonTouch(app) {
         })
         .map((e) => {
             var prevX = this.prevX || 0;
+
             var dir = e.x > prevX ? 1 : -1;
+
+            // Don't change values until locked on an axis, or if position unchanged
+            if (this.dx !== undefined && this.dy !== undefined || e.x === prevX) {
+                dir = 0;
+            }
 
             this.prevX = e.x;
             return dir;
