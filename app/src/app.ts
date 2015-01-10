@@ -7,6 +7,7 @@ var app = new TimepieApp({
     current: 194 * 1000
 });
 
+document.addEventListener("touchend", app.pause.bind(app));
 document.addEventListener("click", app.pause.bind(app));
 document.addEventListener("keydown", function(e) {
     switch (e.keyCode) {
