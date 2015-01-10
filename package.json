@@ -28,6 +28,6 @@
   },
   "scripts": {
     "deploy": "git subtree push --prefix dist origin gh-pages",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Tests are cool. Should write some.\" && exit 0"
   }
 }
