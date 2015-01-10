@@ -9,6 +9,9 @@ body {
           transform-origin: 50% 50%;
   margin: 0; }
 
+svg {
+  pointer-events: none; }
+
 em {
   font-weight: bold; }
 
