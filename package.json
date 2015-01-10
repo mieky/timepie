@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "author": "Mike Arvela <mike@arvela.net>",
   "dependencies": {
-    "d3": "~3.5.2"
+    "d3": "~3.5.2",
+    "rx": "~2.3.22"
   },
   "devDependencies": {
     "browserify": "~7.0.3",
