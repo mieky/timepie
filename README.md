@@ -3,7 +3,12 @@ timepie
 
 A pie-shaped timer!
 
-Hopefully one day useful as a presentation timer, e.g. for those fine people presenting at [Webbisauna](http://www.webbisauna.fi/).
+Features:
+- set custom duration
+- nicely visualize the remaining time
+- beep when done
+
+Potentially useful as an egg timer when cooking an omelette, or as a presentation for events such as [Webbisauna](http://www.webbisauna.fi/).
 
 ![Screenshot](https://github.com/mieky/timepie/raw/master/screenshot.png)
 
@@ -26,14 +31,13 @@ This project is mainly for me to tinker with some fascinating tech:
 - D3 for visualizing
 - Gulp for building
 - Browserify (+tsify for TypeScript)
+- autoprefixer for not having to type CSS vendor-prefixes
 
 ### TODO
 
 - touch support, ipad compatibility
 - make sure sound plays onmobile
-- disable scrolling (or at least handle resizing better) on mobile
 - get rid of timeouts if possible
-- a mobile-friendly layout
 - rounded corners without graphics bugs
 
 ### Miscellanous notes
