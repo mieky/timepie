@@ -15,10 +15,11 @@ function initializeTouch(app) {
 }
 
 function initializeNonTouch(app) {
+/*
     var clickStream = Rx.Observable.fromEvent(document, "click")
         .do(app.pause.bind(app))
         .subscribe();
-
+*/
     var keyStream = Rx.Observable.fromEvent(document, "keydown")
         .do((e) => {
             switch (e.keyCode) {
@@ -30,6 +31,48 @@ function initializeNonTouch(app) {
             }
         })
         .subscribe();
+
+    var mouseStream = Rx.Observable.fromEvent(document, "mousedown")
+        .do((e) => {
+            this.dx = 0;
+            this.dy = 0;
+            this.xy = {
+                x: e.x,
+                y: e.y
+            };
+        })
+        .map((e) => {
+            e.stopPropagation();
+
+            return Rx.Observable.fromEvent(document, "mousemove")
+                .takeUntil(Rx.Observable.fromEvent(document, "mouseup"));
+        })
+        .switch()
+        .do((e) => {
+            if (this.dx !== undefined) this.dx = this.dx.x - e.x;
+            if (this.dy !== undefined) this.dy = this.xy.y - e.y;
+        });
+
+    var mouseVerticalStream = mouseStream
+        .filter((e) => {
+            return this.dy >= 5 && this.dy > (this.dx || 0);
+        })
+        .do(() => { delete this.dx; });
+
+    var mouseHorizontalStream = mouseStream
+        .filter((e) => {
+            return this.dx >= 5 && this.dx > (this.dy || 0);
+        })
+        .do(() => { delete this.dy; });
+
+    var mouseVSub = mouseVerticalStream
+        .do((e) => { console.log(this.dy); })
+        .subscribe();
+
+    var mouseHSub = mouseHorizontalStream
+        .do((e) => { console.log(this.dx); })
+        .subscribe();
+
 
     app.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
 }
