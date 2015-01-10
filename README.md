@@ -3,7 +3,7 @@ timepie
 
 [![Build Status](https://travis-ci.org/mieky/timepie.svg?branch=master)](https://travis-ci.org/mieky/timepie)
 
-A pie-shaped timer! Live installation at [http://mike.fi/timepie/]().
+A pie-shaped timer! Live installation at [mike.fi/timepie](http://mike.fi/timepie/).
 
 Features:
 - set custom duration
