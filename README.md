@@ -5,8 +5,10 @@ timepie
 
 A pie-shaped timer! Live installation at [mike.fi/timepie](http://mike.fi/timepie/).
 
+Should work smoothly on Chrome and Safari, and a little less smoothly on Firefox.
+
 Features:
-- set custom duration
+- set custom duration (touch support coming up)
 - nicely visualize the remaining time
 - beep when done
 
