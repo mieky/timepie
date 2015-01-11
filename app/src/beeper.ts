@@ -6,7 +6,6 @@
 class Beeper {
 
     private audioContext: AudioContext;
-    private osc: any;
 
     constructor() {
         var ContextClass = window["AudioContext"] ||
@@ -16,29 +15,12 @@ class Beeper {
             window["msAudioContext"];
 
         this.audioContext = new ContextClass();
-
-        var currentTime = this.audioContext.currentTime;
-        this.osc = this.audioContext.createOscillator();
-        this.osc.connect(this.audioContext.destination);
-        this.osc.frequency.setValueAtTime(0, this.audioContext.currentTime);
-        this.osc.start(currentTime);
     }
 
-    private bebebeep(offset = 0, count = 3) {
-        var pitch = 35;
-        var increment = 0.05;
-        var start = this.audioContext.currentTime;
-
-        for (var i = 0; i < count; i++) {
-            this.osc.frequency.setValueAtTime(this.freq(pitch),
-                start + offset + increment * (i * 2));
-            this.osc.frequency.setValueAtTime(0,
-                start + offset + increment * (i * 2 + 1));
-        }
-    }
-
-    private freq(halfSteps) {
-        return Math.pow(Math.pow(2, 1 / 12), halfSteps) * 220;
+    private createOscillator() {
+        var osc = this.audioContext.createOscillator();
+        osc.connect(this.audioContext.destination);
+        return osc;
     }
 
     makeNoise() {
@@ -46,9 +28,31 @@ class Beeper {
             return;
         }
 
-        this.bebebeep(0, 3);
-        this.bebebeep(1, 3);
-        this.bebebeep(2, 3);
+        var ac = this.audioContext;
+        var osc = this.createOscillator();
+
+        function bebebeep(offset, count) {
+            offset = offset || 0;
+            count = count || 3;
+
+            var increment = 0.06;
+            var freq = 1500;
+            var start = ac.currentTime;
+
+            for (var i = 0; i < count; i++) {
+                osc.frequency.setValueAtTime(freq, start + offset + increment * (i * 2));
+                osc.frequency.setValueAtTime(0,    start + offset + increment * (i * 2 + 1));
+            }
+        }
+
+        bebebeep(0, 3);
+        bebebeep(1, 3);
+        bebebeep(2, 3);
+
+        osc.start(0);
+        window.setTimeout(function() {
+            osc.disconnect();
+        }, 3000);
     }
 
 }

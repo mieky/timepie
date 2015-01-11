@@ -17,6 +17,8 @@ function initializeTouch(app) {
         .filter((x) => { return x === 2; })
         .subscribe(app.pause.bind(app));
 
+    var THRESHOLD = 10;
+
     var touchStream = Rx.Observable.fromEvent(document, "touchstart")
         .do((e) => {
             this.dy = 0;
@@ -40,7 +42,7 @@ function initializeTouch(app) {
             return this.dy !== undefined;
         })
         .do((e) => {
-            if (Math.abs(e.touches[0].pageY - this.startXy.y) >= 5) {
+            if (Math.abs(e.touches[0].pageY - this.startXy.y) >= THRESHOLD) {
                 delete this.dx;
             }
         })
@@ -56,8 +58,8 @@ function initializeTouch(app) {
             this.prevY = e.touches[0].pageY;
             return dir;
         })
-        .throttleFirst(40) // slow down a bit
-        .do((dir) => { app.adjustMinutes(dir); })
+        .throttleFirst(20) // slow down a bit
+        .do((dir) => { app.adjustSeconds(dir); })
         .subscribe();
 
     var swipeHorizontalStream = touchStream
@@ -65,7 +67,7 @@ function initializeTouch(app) {
             return this.dx !== undefined;
         })
         .do((e) => {
-            if (Math.abs(e.touches[0].pageX - this.startXy.x) >= 5) {
+            if (Math.abs(e.touches[0].pageX - this.startXy.x) >= THRESHOLD) {
                 delete this.dy;
             }
         })
@@ -81,8 +83,8 @@ function initializeTouch(app) {
             this.prevX = e.touches[0].pageX;
             return dir;
         })
-        .throttleFirst(20)
-        .do((dir) => { app.adjustSeconds(dir); })
+        .throttleFirst(40)
+        .do((dir) => { app.adjustMinutes(dir); })
         .subscribe();
 
     app.displayStatus("swipe the time, double-tap to go!");

@@ -8,7 +8,7 @@ A pie-shaped timer! Live installation at [mike.fi/timepie](http://mike.fi/timepi
 Should work smoothly on Chrome and Safari, and a little less smoothly on Firefox.
 
 Features:
-- set custom duration (touch support coming up)
+- set custom duration
 - nicely visualize the remaining time
 - beep when done
 
@@ -39,8 +39,8 @@ This project is mainly for me to tinker with some fascinating tech:
 
 ### TODO
 
-- touch support, ipad compatibility
-- make sure sound plays onmobile
+- find a way to make sound play on mobile
+- memorize last duration
 - get rid of timeouts if possible
 - rounded corners without graphics bugs
 
