@@ -55,6 +55,10 @@ class Timepie {
         }
 
         var diff = amount * 1000;
+        if (diff < 0 && this.pie.duration.current < Math.abs(diff)) {
+            return;
+        }
+
         this.pie.duration.current = Math.max(1000, this.pie.duration.current + diff);
         this.pie.duration.total = this.pie.duration.current;
 
