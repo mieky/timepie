@@ -80,7 +80,7 @@ class Timepie {
 
         if (this.pie.duration.current <= 0) {
             window.setTimeout(() => {
-                this.displayStatus("time's up! hit <em>space</em> to reset.");
+                this.displayStatus("time's up! go again?");
                 this.beeper.makeNoise();
             }, 250);
 
