@@ -85,7 +85,7 @@ function initializeTouch(app) {
         .do((dir) => { app.adjustSeconds(dir); })
         .subscribe();
 
-    app.displayStatus("!swipe the time, double-tap to go!");
+    app.displayStatus("swipe the time, double-tap to go!");
 }
 
 function initializeNonTouch(app) {
