@@ -7,8 +7,8 @@ var TimepieApp = require("./timepie");
 var events     = require("./events");
 
 var app = new TimepieApp({
-    total:   194 * 1000,
-    current: 194 * 1000
+    total:   300 * 1000,
+    current: 300 * 1000
 });
 
 window["timepie"] = app;
