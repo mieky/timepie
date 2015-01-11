@@ -5,10 +5,6 @@
 var Rx = require("rx");
 
 function initializeTouch(app) {
-    window.addEventListener("scroll", function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }, false);
 
     var tapStream = Rx.Observable.fromEvent(document, "touchstart");
     var multiTapStream = tapStream
@@ -30,7 +26,6 @@ function initializeTouch(app) {
         })
         .map((e) => {
             e.preventDefault();
-            e.stopPropagation();
 
             return Rx.Observable.fromEvent(document, "touchmove")
                 .takeUntil(Rx.Observable.fromEvent(document, "touchend"));

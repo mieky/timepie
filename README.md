@@ -25,7 +25,8 @@ gulp
 
 ... and then http://localhost:8000/.
 
-Play/pause with a mouse click or spacebar. Reset with spacebar.
+Play/pause with a mouse doubleclick or spacebar. Reset with spacebar.
+On touch devices, you scan swipe to set duration, and double-tap to play.
 
 ### Tech
 
@@ -36,10 +37,11 @@ This project is mainly for me to tinker with some fascinating tech:
 - Gulp for building
 - Browserify (+tsify for TypeScript)
 - autoprefixer for not having to type CSS vendor-prefixes
+- RxJS
+- Web Audio API
 
 ### TODO
 
-- find a way to make sound play on mobile
 - memorize last duration
 - get rid of timeouts if possible
 - rounded corners without graphics bugs
