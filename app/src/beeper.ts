@@ -9,14 +9,19 @@ class Beeper {
     private osc: any;
 
     constructor() {
-        window["AudioContext"] =
-            window["AudioContext"] || window["webkitAudioContext"];
-        this.audioContext = new AudioContext();
+        var ContextClass = window["AudioContext"] ||
+            window["webkitAudioContext"] ||
+            window["mozAudioContext"] ||
+            window["oAudioContext"] ||
+            window["msAudioContext"];
 
+        this.audioContext = new ContextClass();
+
+        var currentTime = this.audioContext.currentTime;
         this.osc = this.audioContext.createOscillator();
         this.osc.connect(this.audioContext.destination);
         this.osc.frequency.setValueAtTime(0, this.audioContext.currentTime);
-        this.osc.start(0);
+        this.osc.start(currentTime);
     }
 
     private bebebeep(offset = 0, count = 3) {
