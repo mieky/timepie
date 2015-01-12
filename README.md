@@ -43,8 +43,15 @@ This project is mainly for me to tinker with some fascinating tech:
 ### TODO
 
 - memorize last duration
+- prevent screen sleep ([this hack](http://jsbin.com/dubezaqu/3/) seems to work on iOS 8)
 - get rid of timeouts if possible
 - rounded corners without graphics bugs
+
+### Acknowledgements
+
+- Thanks to [anttti](https://github.com/anttti) for providing a good [Gulp boilerplate](https://gist.github.com/anttti/a387fa2c87b34de5d9f8) for getting up to speed
+- Thanks to pohjammikko for the beeper MVP!
+- This project is a grateful recipient of the [Futurice Open Source sponsorship program](http://futurice.com/blog/sponsoring-free-time-open-source-activities).
 
 ### Miscellanous notes
 
