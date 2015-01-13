@@ -4,7 +4,7 @@
 ///<reference path='./types/node.d.ts' />
 ///<reference path='./types/d3.d.ts' />
 
-import types  = require("./types");
+import types = require("./types");
 
 var d3     = require("d3");
 var graph  = require("./graph");
@@ -13,6 +13,7 @@ var Beeper = require("./beeper");
 
 class Timepie {
 
+    private options:        types.StartupOptions;
     private pie:            types.Pie;
     private pieVis:         types.PieVisualization;
     private lastTimestamp:  number;
@@ -21,9 +22,12 @@ class Timepie {
     private statusEl:       D3.Selection;
     private beeper:         any; // TODO: Beeper
 
-    constructor(duration: types.Duration) {
-        this.pie           = this.createPie(duration);
+    constructor(options: types.StartupOptions) {
+        this.options       = options;
+
+        this.pie           = this.createPie(options.duration);
         this.pieVis        = graph.create(this.pie);
+
         this.lastTimestamp = null;
         this.lastUpdate    = null;
         this.paused        = true;
@@ -31,11 +35,14 @@ class Timepie {
     }
 
     private createPie(duration: types.Duration): types.Pie {
-        return <types.Pie>{
+        return {
             width: window.innerWidth,
             height: window.innerHeight,
             radius: (Math.min(window.innerHeight, window.innerWidth) - 50) / 2,
-            duration: duration
+            duration: <types.Duration>{
+                total: duration.total,
+                current: duration.current || duration.total
+            }
         };
     }
 
@@ -86,6 +93,10 @@ class Timepie {
             window.setTimeout(() => {
                 this.displayStatus("time's up! go again?");
                 this.beeper.makeNoise();
+
+                if (this.options.onFinish) {
+                    this.options.onFinish(this.pie.duration.total);
+                }
             }, 250);
 
             return;

@@ -42,8 +42,9 @@ This project is mainly for me to tinker with some fascinating tech:
 
 ### TODO
 
-- memorize last duration
 - prevent screen sleep ([this hack](http://jsbin.com/dubezaqu/3/) seems to work on iOS 8)
+- pass time via URL parameter, e.g. #t=0530
+- possibly remove tweening for mobile devices
 - get rid of timeouts if possible
 - rounded corners without graphics bugs
 
