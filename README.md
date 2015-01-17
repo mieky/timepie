@@ -42,8 +42,11 @@ This project is mainly for me to tinker with some fascinating tech:
 
 ### TODO
 
+- use Typescript 1.4 when possible (let, const)
+- support for being able to resume from becoming inactive
 - prevent screen sleep ([this hack](http://jsbin.com/dubezaqu/3/) seems to work on iOS 8)
 - pass time via URL parameter, e.g. #t=0530
+- use event streams instead of callbacks for memorizing durations
 - possibly remove tweening for mobile devices
 - get rid of timeouts if possible
 - rounded corners without graphics bugs
