@@ -1,15 +1,13 @@
 /**
     Application logic.
 */
-///<reference path='./types/node.d.ts' />
 ///<reference path='./types/d3.d.ts' />
 
-import types = require("./types");
-
-var d3     = require("d3");
-var graph  = require("./graph");
-var util   = require("./util");
-var Beeper = require("./beeper");
+import d3     = require("d3");
+import graph  = require("./graph");
+import util   = require("./util");
+import Beeper = require("./beeper")
+import types  = require("./types");
 
 class Timepie {
 
@@ -151,4 +149,5 @@ class Timepie {
 
 }
 
-module.exports = Timepie;
+// module.exports = Timepie;
+export = Timepie;

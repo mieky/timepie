@@ -1,12 +1,9 @@
 /**
     App entry point.
 */
-///<reference path='./types/node.d.ts' />
-
 import types   = require("./types");
-
-var TimepieApp = require("./timepie");
-var events     = require("./events");
+import Timepie = require("./timepie");
+import events  = require("./events");
 
 var DEFAULT_DURATION  = 300;
 var LAST_DURATION_KEY = "timepie_last_duration";
@@ -31,7 +28,7 @@ var options = <types.StartupOptions>{
     onFinish: memorizeDuration
 };
 
-var app = new TimepieApp(options);
+var app = new Timepie(options);
 events.initialize(app);
 app.start();
 

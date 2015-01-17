@@ -4,10 +4,9 @@
 
 ///<reference path='./types/node.d.ts' />
 
+import d3    = require("d3");
 import types = require("./types");
-
-var d3   = require("d3");
-var util = require("./util");
+import util  = require("./util");
 
 function formatDuration(milliseconds: number) {
     var seconds = util.millis2seconds(milliseconds);
@@ -92,9 +91,7 @@ export function create(pie: types.Pie) {
     }
 }
 
-export function update(pie: types.Pie, pieVis: types.PieVisualization, options: any) {
-    options = options || {};
-
+export function update(pie: types.Pie, pieVis: types.PieVisualization, options: any = {}) {
     var data = [
         pie.duration.current,
         pie.duration.total - pie.duration.current

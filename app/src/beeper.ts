@@ -83,7 +83,6 @@ class Beeper {
             osc.disconnect();
         }, 3000);
     }
-
 }
 
-module.exports = Beeper;
+export = Beeper;

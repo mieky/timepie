@@ -2,7 +2,22 @@
     Event handlers for touch and non-touch.
 */
 
+///<reference path='./types/node.d.ts' />
+///<reference path='./types/rx/rx.all.d.ts' />
+
 var Rx = require("rx");
+
+export function initialize(app) {
+    window.addEventListener("resize", app.resize.bind(app));
+
+    var hasTouch: boolean = "ontouchstart" in window;
+
+    if (hasTouch) {
+        initializeTouch(app);
+    } else {
+        initializeNonTouch(app);
+    }
+}
 
 function initializeTouch(app) {
 
@@ -97,16 +112,4 @@ function initializeNonTouch(app) {
     window.addEventListener("dbclick", app.pause.bind(app));
 
     app.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
-}
-
-export function initialize(app) {
-    window.addEventListener("resize", app.resize.bind(app));
-
-    var hasTouch: boolean = "ontouchstart" in window;
-
-    if (hasTouch) {
-        initializeTouch(app);
-    } else {
-        initializeNonTouch(app);
-    }
 }
