@@ -14,11 +14,12 @@ class Timepie {
     private options:        types.StartupOptions;
     private pie:            types.Pie;
     private pieVis:         types.PieVisualization;
+    private beeper:         Beeper;
+
     private lastTimestamp:  number;
     private lastUpdate:     number;
     private paused:         boolean;
     private statusEl:       D3.Selection;
-    private beeper:         any; // TODO: Beeper
 
     constructor(options: types.StartupOptions) {
         this.options       = options;
@@ -44,17 +45,17 @@ class Timepie {
         };
     }
 
-    private recreate() {
+    private recreate(): void {
         graph.clear();
         this.pie = this.createPie(this.pie.duration);
         this.pieVis = graph.create(this.pie);
     }
 
-    private adjustMinutes(amount: number) {
+    private adjustMinutes(amount: number): void {
         this.adjustSeconds(amount * 60);
     }
 
-    private adjustSeconds(amount: number) {
+    private adjustSeconds(amount: number): void {
         if (!this.paused) {
             return;
         }
@@ -70,7 +71,7 @@ class Timepie {
         graph.update(this.pie, this.pieVis, { immediate: true });
     }
 
-    private tick(timestamp: number) {
+    private tick(timestamp: number): void {
         if (this.paused) {
             return;
         }
@@ -103,7 +104,7 @@ class Timepie {
         window.requestAnimationFrame(this.tick);
     }
 
-    displayStatus(text: string) {
+    displayStatus(text: string): void {
         if (this.statusEl === undefined) {
             this.statusEl = d3.select("body")
                 .append("div")
@@ -112,7 +113,7 @@ class Timepie {
         this.statusEl.html(text);
     }
 
-    pause() {
+    pause(): void {
         this.paused = !this.paused;
         this.lastTimestamp = null;
 
@@ -133,21 +134,20 @@ class Timepie {
         }
     }
 
-    reset() {
+    reset(): void {
         this.pie.duration.current = this.pie.duration.total;
         this.recreate();
     }
 
-    resize() {
+    resize(): void {
         this.recreate();
     }
 
-    start() {
+    start(): void {
         this.tick = this.tick.bind(this);
         window.requestAnimationFrame(this.tick);
     }
 
 }
 
-// module.exports = Timepie;
 export = Timepie;
