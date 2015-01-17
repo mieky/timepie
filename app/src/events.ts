@@ -5,11 +5,11 @@
 ///<reference path='./types/node.d.ts' />
 ///<reference path='./types/rx/rx.all.d.ts' />
 
+import parameter = require("./parameter");
+
 var Rx = require("rx");
 
 export function initialize(app) {
-    window.addEventListener("resize", app.resize.bind(app));
-
     var hasTouch: boolean = "ontouchstart" in window;
 
     if (hasTouch) {
@@ -17,6 +17,13 @@ export function initialize(app) {
     } else {
         initializeNonTouch(app);
     }
+
+    window.addEventListener("resize", app.resize.bind(app));
+
+    window.addEventListener("hashchange", function(e) {
+        var newDuration = parameter.parseDuration(e["newURL"]);
+        app.setDuration(newDuration);
+    });
 }
 
 function initializeTouch(app) {

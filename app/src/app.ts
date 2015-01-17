@@ -1,12 +1,13 @@
 /**
     App entry point.
 */
-import Timepie = require("./timepie");
-import events  = require("./events");
-import storage = require("./storage");
+import Timepie   = require("./timepie");
+import events    = require("./events");
+import storage   = require("./storage");
+import parameter = require("./parameter");
 
 var app = new Timepie({
-    duration: storage.getStartupDuration(),
+    duration: parameter.parseDuration() || storage.getStartupDuration(),
     onFinish: storage.memorizeDuration
 });
 

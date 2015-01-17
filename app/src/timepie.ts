@@ -71,6 +71,13 @@ class Timepie {
         graph.update(this.pie, this.pieVis, { immediate: true });
     }
 
+    private setDuration(duration: types.Duration): void {
+        this.pie.duration.total = duration.total;
+        this.pie.duration.current = this.pie.duration.total;
+
+        graph.update(this.pie, this.pieVis, { immediate: true });
+    }
+
     private tick(timestamp: number): void {
         if (this.paused) {
             return;
