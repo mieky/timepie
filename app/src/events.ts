@@ -8,9 +8,9 @@ function initializeTouch(app) {
 
     var tapStream = Rx.Observable.fromEvent(document, "touchstart");
     var multiTapStream = tapStream
-        .buffer((x) => { return tapStream.throttle(250); })
-        .map((list) => { return list.length; })
-        .filter((x) => { return x === 2; })
+        .buffer((x) => tapStream.throttle(250))
+        .map((list) => list.length)
+        .filter((x) => x === 2)
         .subscribe(app.pause.bind(app));
 
     var THRESHOLD = 10;
@@ -33,9 +33,7 @@ function initializeTouch(app) {
         .switch();
 
     var swipeVerticalStream = touchStream
-        .filter(() => {
-            return this.dy !== undefined;
-        })
+        .filter(() => this.dy !== undefined)
         .do((e) => {
             if (Math.abs(e.touches[0].pageY - this.startXy.y) >= THRESHOLD) {
                 delete this.dx;
@@ -54,13 +52,11 @@ function initializeTouch(app) {
             return dir;
         })
         .throttleFirst(20) // slow down a bit
-        .do((dir) => { app.adjustSeconds(dir); })
+        .do((dir) => app.adjustSeconds(dir))
         .subscribe();
 
     var swipeHorizontalStream = touchStream
-        .filter(() => {
-            return this.dx !== undefined;
-        })
+        .filter(() => this.dx !== undefined)
         .do((e) => {
             if (Math.abs(e.touches[0].pageX - this.startXy.x) >= THRESHOLD) {
                 delete this.dy;
@@ -79,7 +75,7 @@ function initializeTouch(app) {
             return dir;
         })
         .throttleFirst(40)
-        .do((dir) => { app.adjustMinutes(dir); })
+        .do((dir) => app.adjustMinutes(dir))
         .subscribe();
 
     app.displayStatus("swipe the time, double-tap to go!");
