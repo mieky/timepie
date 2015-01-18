@@ -5,14 +5,20 @@ timepie
 
 A pie-shaped timer! Live installation at [mike.fi/timepie](http://mike.fi/timepie/).
 
-Should work smoothly on Chrome and Safari, and a little less smoothly on Firefox.
+Useful as an egg timer when cooking an omelette, or as a presentation for events such as [Webbisauna](http://www.webbisauna.fi/).
+
+Should work smoothly on Chrome and Safari, and remain functional on Firefox.
 
 Features:
 - set custom duration
 - nicely visualize the remaining time
 - beep when done
+- works on Android / iOS too
 
-Potentially useful as an egg timer when cooking an omelette, or as a presentation for events such as [Webbisauna](http://www.webbisauna.fi/).
+You can also pass the time via URL parameter, e.g.
+- minutes + seconds: http://mike.fi/timepie/#t=5m30s
+- just seconds: http://mike.fi/timepie/#t=300s
+- short! http://mike.fi/timepie/#15
 
 ![Screenshot](https://github.com/mieky/timepie/raw/master/screenshot.png)
 
@@ -27,11 +33,6 @@ gulp
 
 Play/pause with a mouse doubleclick or spacebar. Reset with spacebar.
 On touch devices, you scan swipe to set duration, and double-tap to play.
-
-You can also pass the time via URL parameter, e.g.
-- minutes + seconds: http://mike.fi/timepie/#t=5m30
-- just seconds: http://mike.fi/timepie/#t=300
-- short! http://mike.fi/timepie/#15
 
 ### Tech
 
