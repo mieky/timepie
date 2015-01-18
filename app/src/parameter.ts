@@ -14,16 +14,10 @@ function parseTime(subject: string): number {
 
     var rest = subject.substring(idx);
 
-    // 03:08, 03m08
-    var matches = rest.match(/^(?:#t=|#)?(\d+)[:m](\d{1,2})$/);
+    // Parse 03:08, 03m08s, 2m, 188s, 15s
+    var matches = rest.match(/^(?:#t=|#)?(?:(\d+)[:m])?(\d+)?(?:s?)$/);
     if (matches && matches[2] !== undefined) {
-        return seconds(matches[1], matches[2]);
-    }
-
-    // 188
-    matches = rest.match(/^(?:#t=|#)?(\d+)$/);
-    if (matches && matches[1] !== undefined) {
-        return seconds("0", matches[1]);
+        return seconds(matches[1] || "0", matches[2] || "0");
     }
 
     return null;
