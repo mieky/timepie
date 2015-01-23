@@ -12,8 +12,8 @@ Should work smoothly on Chrome and Safari, and remain functional on Firefox.
 Features:
 - set custom duration
 - nicely visualize the remaining time
-- beep when done
-- works on Android / iOS too
+- beep when done (also from the background in desktop Chrome, Firefox)
+- works for the most part on Android / iOS too
 
 You can also pass the time via URL parameter, e.g.
 - minutes + seconds: http://mike.fi/timepie/#t=5m30s
@@ -45,11 +45,12 @@ This project is mainly for me to tinker with some fascinating tech:
 - autoprefixer for not having to type CSS vendor-prefixes
 - RxJS
 - Web Audio API
+- Page Visibility API
+- Web Notifications API
 
 ### TODO
 
 - use Typescript 1.4 when possible (let, const)
-- support for being able to resume from becoming inactive
 - prevent screen sleep ([this hack](http://jsbin.com/dubezaqu/3/) seems to work on iOS 8)
 - use event streams instead of callbacks for memorizing durations
 - possibly remove tweening for mobile devices

@@ -45,6 +45,20 @@ class Timepie {
         };
     }
 
+    private finish(): void {
+        this.paused = true;
+        this.pie.duration.current = 0;
+
+        graph.update(this.pie, this.pieVis, { immediate : true });
+
+        this.displayStatus("time's up! go again?");
+        this.beeper.makeNoise();
+
+        if (this.options.onFinish) {
+            this.options.onFinish(this.pie.duration.total);
+        }
+    }
+
     private recreate(): void {
         graph.clear();
         this.pie = this.createPie(this.pie.duration);
@@ -87,7 +101,7 @@ class Timepie {
             this.lastTimestamp = timestamp;
         }
 
-        this.pie.duration.current = this.pie.duration.current - (timestamp - this.lastTimestamp);
+        this.pie.duration.current = Math.max(0, this.pie.duration.current - (timestamp - this.lastTimestamp));
         this.lastTimestamp = timestamp;
 
         if (!this.lastUpdate || this.lastUpdate !== util.millis2seconds(this.pie.duration.current)) {
@@ -97,14 +111,8 @@ class Timepie {
 
         if (this.pie.duration.current <= 0) {
             window.setTimeout(() => {
-                this.displayStatus("time's up! go again?");
-                this.beeper.makeNoise();
-
-                if (this.options.onFinish) {
-                    this.options.onFinish(this.pie.duration.total);
-                }
+                this.finish();
             }, 250);
-
             return;
         }
 
@@ -118,6 +126,10 @@ class Timepie {
                 .attr("class", "status-text");
         }
         this.statusEl.html(text);
+    }
+
+    isFinished(): boolean {
+        return this.pie.duration.current <= 0 && this.paused;
     }
 
     pause(): void {

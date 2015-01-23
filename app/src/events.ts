@@ -18,6 +18,27 @@ export function initialize(app) {
         initializeNonTouch(app);
     }
 
+    initializeNotifications(app);
+
+    var blurTimeout = null;
+    document.addEventListener("visibilitychange", function() {
+        var Notification = window["Notification"];
+
+        if (document.hidden && !app.paused) {
+            blurTimeout = setTimeout(function() {
+                if (Notification.permission === "granted") {
+                    var not = new Notification("timepie: time's up!");
+                    app.finish.call(app);
+                }
+            }, Math.round(app.pie.duration.current));
+        }
+        else if (!document.hidden && !app.paused) {
+            if (blurTimeout) {
+                window.clearTimeout(blurTimeout);
+            }
+        }
+    })
+
     window.addEventListener("resize", app.resize.bind(app));
 
     window.addEventListener("hashchange", function(e) {
@@ -119,4 +140,21 @@ function initializeNonTouch(app) {
     window.addEventListener("dbclick", app.pause.bind(app));
 
     app.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
+}
+
+function initializeNotifications(app) {
+    if (!("Notification" in window)) {
+        return;
+    }
+
+    var Notification = window["Notification"];
+
+    if (Notification.permission !== "denied") {
+        Notification.requestPermission(function(permission) {
+            // If the user is okay, let's create a notification
+            if (permission === "granted") {
+                // var notification = new Notification("Hi there!");
+            }
+        });
+    }
 }
