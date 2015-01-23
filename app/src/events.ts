@@ -148,13 +148,7 @@ function initializeNotifications(app) {
     }
 
     var Notification = window["Notification"];
-
     if (Notification.permission !== "denied") {
-        Notification.requestPermission(function(permission) {
-            // If the user is okay, let's create a notification
-            if (permission === "granted") {
-                // var notification = new Notification("Hi there!");
-            }
-        });
+        Notification.requestPermission();
     }
 }
