@@ -20,25 +20,7 @@ export function initialize(app) {
 
     initializeNotifications(app);
 
-    var blurTimeout = null;
-    document.addEventListener("visibilitychange", function() {
-        var Notification = window["Notification"];
-
-        if (document.hidden && !app.paused) {
-            blurTimeout = setTimeout(function() {
-                if (Notification.permission === "granted") {
-                    var not = new Notification("timepie: time's up!");
-                    app.finish.call(app);
-                }
-            }, Math.round(app.pie.duration.current));
-        }
-        else if (!document.hidden && !app.paused) {
-            if (blurTimeout) {
-                window.clearTimeout(blurTimeout);
-            }
-        }
-    })
-
+    document.addEventListener("visibilitychange", getVisibilityChangeHandler(app));
     window.addEventListener("resize", app.resize.bind(app));
 
     window.addEventListener("hashchange", function(e) {
@@ -47,8 +29,35 @@ export function initialize(app) {
     });
 }
 
-function initializeTouch(app) {
+function getVisibilityChangeHandler(app) {
+    var alarmTimeout = null;
+    var Notification = window["Notification"];
 
+    function onTimeup() {
+        if (Notification.permission === "granted") {
+            var not = new Notification("timepie: time's up!");
+
+            // Have the app trigger a tick – this causes a proper
+            // update leading to a finish() even if requestAnimationFrame
+            // isn't available.
+            app.tick(new Date().getTime());
+        }
+    }
+
+    return function() {
+        if (document.hidden && !app.paused) {
+            var timeout = Math.round(app.pie.duration.current);
+            alarmTimeout = setTimeout(onTimeup, timeout);
+        }
+        // We're visible again. If we had set an alarm timeout before,
+        // we can resume normal operations again: cancel the timeout.
+        else if (!document.hidden && !app.paused && alarmTimeout) {
+            window.clearTimeout(alarmTimeout);
+        }
+    };
+}
+
+function initializeTouch(app) {
     var tapStream = Rx.Observable.fromEvent(document, "touchstart");
     var multiTapStream = tapStream
         .buffer((x) => tapStream.throttle(250))
@@ -137,9 +146,9 @@ function initializeNonTouch(app) {
         })
         .subscribe();
 
-    window.addEventListener("dbclick", app.pause.bind(app));
+    window.addEventListener("dblclick", app.pause.bind(app));
 
-    app.displayStatus("<em>space</em> plays / pauses<br /><em>arrow keys</em> adjust time");
+    app.displayStatus("arrow keys & space!");
 }
 
 function initializeNotifications(app) {

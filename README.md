@@ -51,6 +51,7 @@ This project is mainly for me to tinker with some fascinating tech:
 ### TODO
 
 - use Typescript 1.4 when possible (let, const)
+- use declared interfaces instead of window["pirate-ninja"] hacks
 - prevent screen sleep ([this hack](http://jsbin.com/dubezaqu/3/) seems to work on iOS 8)
 - use event streams instead of callbacks for memorizing durations
 - possibly remove tweening for mobile devices

@@ -40,7 +40,6 @@ em {
 .pie {
     transform: scale(1.5);
     overflow: hidden;
-    @extend .animation--appear;
 
     @media screen and (min-width: 500px) {
         font-size: 15vmin;
@@ -66,7 +65,7 @@ em {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -65%);
+    transform: translate(-50%, -55%);
 
     color: #666;
     font-family: 'Roboto', sans-serif;

@@ -61,9 +61,9 @@ em {
   position: absolute;
   left: 50%;
   top: 50%;
-  -webkit-transform: translate(-50%, -65%);
-      -ms-transform: translate(-50%, -65%);
-          transform: translate(-50%, -65%);
+  -webkit-transform: translate(-50%, -55%);
+      -ms-transform: translate(-50%, -55%);
+          transform: translate(-50%, -55%);
   color: #666;
   font-family: 'Roboto', sans-serif;
   text-shadow: 2px 2px 0px #e5e5e5;
@@ -75,7 +75,7 @@ em {
 path.bg {
   fill: #f0f0f0; }
 
-.animation--appear, .pie, .status-text, .time-counter {
+.animation--appear, .status-text, .time-counter {
   opacity: 1;
   -webkit-animation-name: appear;
           animation-name: appear;
