@@ -119,13 +119,20 @@ class Timepie {
         window.requestAnimationFrame(this.tick);
     }
 
-    displayStatus(text: string): void {
+    displayStatus(text: string, timeout: number = 0): void {
         if (this.statusEl === undefined) {
             this.statusEl = d3.select("body")
                 .append("div")
-                .attr("class", "status-text");
         }
+
+        this.statusEl.attr("class", "status-text");
         this.statusEl.html(text);
+
+        if (timeout > 0) {
+            setTimeout(() => {
+                this.statusEl.attr("class", "status-text animation--disappear");
+            }, timeout)
+        }
     }
 
     isFinished(): boolean {
@@ -137,9 +144,10 @@ class Timepie {
         this.lastTimestamp = null;
 
         if (this.paused) {
-            this.displayStatus("&#10073;&#10073;"); // "pause"
+
+            this.displayStatus("paused");
         } else {
-            this.displayStatus("&#9658;");          // "play"
+            this.displayStatus("playing...", 2000);
         }
 
         // Reset

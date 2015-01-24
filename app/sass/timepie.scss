@@ -17,12 +17,13 @@ body {
     background-image: radial-gradient(ellipse farthest-corner at 80px 80px, #eee, #999);
     transform-origin: 50% 50%;
     margin: 0;
-    
+
     user-select: none;
 }
 
 .fork-me {
     display: none;
+
     @media screen and (min-width: 500px) {
         display: block;
     }
@@ -39,6 +40,7 @@ em {
 .pie {
     transform: scale(1.5);
     overflow: hidden;
+    @extend .animation--appear;
 
     @media screen and (min-width: 500px) {
         font-size: 15vmin;
@@ -56,6 +58,8 @@ em {
     font-family: 'Roboto', sans-serif;
     font-size: 2.0vh;
     text-align: center;
+
+    @extend .animation--appear;
 }
 
 .time-counter {
@@ -72,9 +76,36 @@ em {
 
     @media screen and (min-width: 500px) {
         font-size: 15vmin;
+        @extend .animation--appear;
     }
 }
 
 path.bg {
     fill: #f0f0f0;
+}
+
+.animation--appear {
+    opacity: 1;
+    animation-name: appear;
+    animation-iteration-count: 1;
+    animation-duration: .5s;
+    animation-timing-function: ease-out;
+}
+
+.animation--disappear {
+    opacity: 0;
+    animation-name: disappear;
+    animation-iteration-count: 1;
+    animation-duration: .5s;
+    animation-timing-function: ease-out;
+}
+
+@keyframes appear {
+    0%   { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes disappear {
+    0%   { opacity: 1; }
+    100% { opacity: 0; }
 }
