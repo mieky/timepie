@@ -74,3 +74,53 @@ em {
 
 path.bg {
   fill: #f0f0f0; }
+
+.animation--appear, .pie, .status-text, .time-counter {
+  opacity: 1;
+  -webkit-animation-name: appear;
+          animation-name: appear;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out; }
+
+.animation--disappear {
+  opacity: 0;
+  -webkit-animation-name: disappear;
+          animation-name: disappear;
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  -webkit-animation-duration: 0.5s;
+          animation-duration: 0.5s;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out; }
+
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
+
+@keyframes appear {
+  0% {
+    opacity: 0; }
+
+  100% {
+    opacity: 1; } }
+
+@-webkit-keyframes disappear {
+  0% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
+
+@keyframes disappear {
+  0% {
+    opacity: 1; }
+
+  100% {
+    opacity: 0; } }
