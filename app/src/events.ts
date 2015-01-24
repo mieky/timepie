@@ -63,7 +63,7 @@ function initializeTouch(app) {
         .buffer((x) => tapStream.throttle(250))
         .map((list) => list.length)
         .filter((x) => x === 2)
-        .subscribe(app.pause.bind(app));
+        .subscribe(() => app.pause());
 
     var THRESHOLD = 10;
 
@@ -134,6 +134,13 @@ function initializeTouch(app) {
 }
 
 function initializeNonTouch(app) {
+    var tapStream = Rx.Observable.fromEvent(document, "mousedown");
+    var multiTapStream = tapStream
+        .buffer((x) => tapStream.throttle(250))
+        .map((list) => list.length)
+        .filter((x) => x === 2)
+        .subscribe(() => app.pause());
+
     var keyStream = Rx.Observable.fromEvent(document, "keydown")
         .do((e) => {
             switch (e.keyCode) {
@@ -145,8 +152,6 @@ function initializeNonTouch(app) {
             }
         })
         .subscribe();
-
-    window.addEventListener("dblclick", app.pause.bind(app));
 
     app.displayStatus("arrow keys & space!");
 }
