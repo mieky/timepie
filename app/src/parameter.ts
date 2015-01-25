@@ -16,7 +16,7 @@ function parseTime(subject: string): number {
 
     // Parse 03:08, 03m08s, 2m, 188s, 15s
     var matches = rest.match(/^(?:#t=|#)?(?:(\d+)[:m])?(\d+)?(?:s?)$/);
-    if (matches && matches[2] !== undefined) {
+    if (matches) {
         return seconds(matches[1] || "0", matches[2] || "0");
     }
 
