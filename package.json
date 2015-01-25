@@ -17,7 +17,7 @@
     "gulp-typescript": "~2.3.0",
     "gulp-util": "~3.0.1",
     "gulp-webserver": "~0.9.0",
-    "tsify": "git://github.com/mieky/tsify.git",
+    "tsify": "~0.8.0",
     "vinyl-source-stream": "~1.0.0",
     "watchify": "~2.2.1"
   },
